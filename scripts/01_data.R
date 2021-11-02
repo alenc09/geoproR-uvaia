@@ -29,10 +29,30 @@ raster::projectRaster(pop_MA_1000, crs = proj_sigar2000_polyBR, method = "biline
 
 sf::st_transform(map_MA, crs = 5880) ->map_MA_polyBR #aqui é só para o sf da mata atlântica ficar na mesma projeção
 
+amphi_sites %>% 
+  sf::st_as_sf(coords = c("longitude", "latitude"), crs = 4326) %>%
+  st_transform(crs = 5880)-> anf_sites_points
+
+anf_sites_points[map_MA_polyBR, ]-> anf_sites_MA
+plot(anf_sites_MA$geometry)
+
+### buffer
+buff_1km <- sf::st_buffer(x = anf_sites_MA, dist = 1000)
+buff_2km <- sf::st_buffer(x = anf_sites_MA, dist = 2000)
+buff_5km <- sf::st_buffer(x = anf_sites_MA, dist = 5000)
 
 ## data visualization ----
 plot(pop_MA_1000_polyBR)
+
 plot(map_MA_polyBR$geom, add = T) #para visualizar se o processamento acima funcinou
+
+plot(anf_sites_points$geometry)
+
+plot(buff_1km$geometry)
+
+plot(buff_2km$geometry)
+
+plot(buff_5km$geometry)
 
 ## data export----
 raster::writeRaster(pop_MA, 
