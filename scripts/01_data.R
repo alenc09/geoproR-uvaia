@@ -64,7 +64,7 @@ raster::writeRaster(pop_MA,
                     overwrite = TRUE)
 
 raster::writeRaster(pop_MA_1000_polyBR, 
-                    filename = here::here("dados/pop_MA_1000_sirgas2000"),
+                    filename = here::here("dados/pop_MA_1000_ployBR"),
                     format = "GTiff",
                     datatype = "INT2S",
                     options = c("COMPRESS=DEFLATE", "TFW=YES"),
