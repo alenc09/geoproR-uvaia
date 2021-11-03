@@ -34,7 +34,10 @@ amphi_sites %>%
   st_transform(crs = 5880)-> anf_sites_points
 
 anf_sites_points[map_MA_polyBR, ]-> anf_sites_MA
+anf_sites_points[map_MA_polyBR,  , op = st_disjoint]-> anf_sites_outMA
+
 plot(anf_sites_MA$geometry)
+
 
 ### buffer
 buff_1km <- sf::st_buffer(x = anf_sites_MA, dist = 1000)
