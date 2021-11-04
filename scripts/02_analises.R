@@ -78,6 +78,15 @@ amphi_spp_wide%>%
 map(~glm(. ~ amphi_spp_wide$pop_1km, family="poisson"))%>%#->list_model1km
 lapply(., summary)-> summary_mods_1km
 
+amphi_spp_wide%>%
+  select(-id, -geometry1, -geometry2, -geometry5)%>%
+  map(~glm(. ~ amphi_spp_wide$pop_2km, family="poisson"))%>%#->list_model1km
+  lapply(., summary)-> summary_mods_2km
+
+amphi_spp_wide%>%
+  select(-id, -geometry1, -geometry2, -geometry5)%>%
+  map(~glm(. ~ amphi_spp_wide$pop_5km, family="poisson"))%>%#->list_model1km
+  lapply(., summary)-> summary_mods_5km
 
 #summary(glm(data = amphi_spp_wide, `Physalaemus cuvieri` ~ log(pop_5km+0.0001), family = "poisson"))
 
